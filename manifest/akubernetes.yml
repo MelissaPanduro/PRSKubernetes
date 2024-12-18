@@ -17,19 +17,19 @@ kubectl apply -f namespace.yml
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: hernan
+  name: melissa
 ---
 
 # consultar namespace en uso por "default"
 kubectl config view --minify | grep namespace
 
-# 3cambiar un namespace en uso por "default" a "hernan"
+# 3cambiar un namespace en uso por "default" a "melissa"
 kubectl config set-context --current --namespace=melissa
 
-# consultar todos los recursos de un namespace "hernan"
-kubectl get all -n hernan
+# consultar todos los recursos de un namespace "melissa"
+kubectl get all -n melissa
 
-# consultar todos los recursos y secret de un namespace "hernan"
+# consultar todos los recursos y secret de un namespace "melissa"
 kubectl get all,secrets -n melissa
 
 # listar services del namespace "hernan"
@@ -42,6 +42,8 @@ curl http://192.168.49.2:30001/api/id/1
 
 # 6crear un túnel de puerto la máquina local (host) y el clúster de Kubernetes
 kubectl port-forward service/api-gpt-be 8085:30001
+kubectl port-forward service/prs-be 8085:30001
 kubectl port-forward service/api-gpt-frontend 4200:30002
+kubectl port-forward service/prs-frontend 4200:30002
 # ver los logs del pod (logs del proyecto)
 kubectl logs nombre-pod

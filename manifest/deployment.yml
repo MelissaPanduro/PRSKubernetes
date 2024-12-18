@@ -2,21 +2,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: api-gpt-be
+  name: prs-be
   namespace: melissa
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: api-gpt-be
+      app: prs-be
   template:
     metadata:
       labels:
-        app: api-gpt-be
+        app: prs-be
     spec:
       containers:
-      - name: api-gpt-be
-        image: melissapanduro/be_chat  # Reemplaza con tu imagen Docker del backend
+      - name: prs-be
+        image: melissapanduro/prsback  # Reemplaza con tu imagen Docker del backend
         env:
         - name: DATABASE_URL
           valueFrom:
@@ -33,32 +33,28 @@ spec:
             secretKeyRef:
               name: database-credentials
               key: DATABASE_PASSWORD
-        - name: RAPIDAPI_KEY
-          valueFrom:
-            secretKeyRef:
-              name: database-credentials
-              key: RAPIDAPI_KEY
+
 
 ---
 
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: api-gpt-frontend
+  name: prs-frontend
   namespace: melissa
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: api-gpt-frontend
+      app: prs-frontend
   template:
     metadata:
       labels:
-        app: api-gpt-frontend
+        app: prs-frontend
     spec:
       containers:
-      - name: api-gpt-frontend
-        image: melissapanduro/fe_chat # Reemplaza con tu imagen Docker del frontend
+      - name: prs-frontend
+        image: melissapanduro/prsfront # Reemplaza con tu imagen Docker del frontend
         env:
         - name: API_BACKEND
           valueFrom:
@@ -80,8 +76,3 @@ spec:
             secretKeyRef:
               name: database-credentials
               key: DATABASE_PASSWORD
-        - name: RAPIDAPI_KEY
-          valueFrom:
-            secretKeyRef:
-              name: database-credentials
-              key: RAPIDAPI_KEY
