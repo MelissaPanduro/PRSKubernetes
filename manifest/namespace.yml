@@ -1,0 +1,6 @@
+# kubectl create namespace hernan(COMANDO)
+# 2kubectl apply -f namespace.yml (yml)
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: melissa

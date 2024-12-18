@@ -1,0 +1,87 @@
+# 2kubectl apply -f deployment.yml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-gpt-be
+  namespace: melissa
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api-gpt-be
+  template:
+    metadata:
+      labels:
+        app: api-gpt-be
+    spec:
+      containers:
+      - name: api-gpt-be
+        image: melissapanduro/be_chat  # Reemplaza con tu imagen Docker del backend
+        env:
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: database-credentials                # Nombre del Secret
+              key: DATABASE_URL                         # Clave dentro del Secret
+        - name: DATABASE_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: database-credentials
+              key: DATABASE_USERNAME
+        - name: DATABASE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: database-credentials
+              key: DATABASE_PASSWORD
+        - name: RAPIDAPI_KEY
+          valueFrom:
+            secretKeyRef:
+              name: database-credentials
+              key: RAPIDAPI_KEY
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-gpt-frontend
+  namespace: melissa
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api-gpt-frontend
+  template:
+    metadata:
+      labels:
+        app: api-gpt-frontend
+    spec:
+      containers:
+      - name: api-gpt-frontend
+        image: melissapanduro/fe_chat # Reemplaza con tu imagen Docker del frontend
+        env:
+        - name: API_BACKEND
+          valueFrom:
+            secretKeyRef:
+              name: database-credentials
+              key: API_BACKEND  # La clave en el Secret para API_BACKEND
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: database-credentials                # Nombre del Secret
+              key: DATABASE_URL                         # Clave dentro del Secret
+        - name: DATABASE_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: database-credentials
+              key: DATABASE_USERNAME
+        - name: DATABASE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: database-credentials
+              key: DATABASE_PASSWORD
+        - name: RAPIDAPI_KEY
+          valueFrom:
+            secretKeyRef:
+              name: database-credentials
+              key: RAPIDAPI_KEY
