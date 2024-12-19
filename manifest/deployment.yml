@@ -2,20 +2,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: prs-be
+  name: backend
   namespace: melissa
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: prs-be
+      app: backend
   template:
     metadata:
       labels:
-        app: prs-be
+        app: backend
     spec:
       containers:
-      - name: prs-be
+      - name: backend
         image: melissapanduro/nphproduct:backend
         env:
         - name: DATABASE_URL

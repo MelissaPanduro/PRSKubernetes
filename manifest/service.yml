@@ -7,8 +7,8 @@ metadata:
 spec:
   type: NodePort      
   ports:
-  - port: 30001
+  - port: 30007
     targetPort: 8085  
-    nodePort: 30001
+    nodePort: 30007
   selector:
-    app: backend 
+    app: backend

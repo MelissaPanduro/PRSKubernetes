@@ -43,7 +43,11 @@ curl http://192.168.49.2:30001/api/id/1
 # 6crear un túnel de puerto la máquina local (host) y el clúster de Kubernetes
 kubectl port-forward service/api-gpt-be 8085:30001
 
-kubectl port-forward service/backend 8085:30001
+kubectl port-forward service/backend 8085:30007
+
+kubectl port-forward service/frontend 4200:30006 -n melissa & kubectl port-forward service/backend 8085:30007 -n melissa
+
+
 
 kubectl port-forward service/api-gpt-frontend 4200:30002
 kubectl port-forward service/prs-frontend 4200:30002
