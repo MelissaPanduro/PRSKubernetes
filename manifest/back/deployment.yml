@@ -1,0 +1,35 @@
+# 2kubectl apply -f deployment.yml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prs-be
+  namespace: melissa
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prs-be
+  template:
+    metadata:
+      labels:
+        app: prs-be
+    spec:
+      containers:
+      - name: prs-be
+        image: melissapanduro/nphproduct:backend
+        env:
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: database-credentials                
+              key: DATABASE_URL                       
+        - name: DATABASE_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: database-credentials
+              key: DATABASE_USERNAME
+        - name: DATABASE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: database-credentials
+              key: DATABASE_PASSWORD

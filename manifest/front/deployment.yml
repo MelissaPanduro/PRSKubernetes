@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prs-fe
+  namespace: melissa
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prs-fe
+  template:
+    metadata:
+      labels:
+        app: prs-fe
+    spec:
+      containers:
+        - name: prs-fe
+          image: melissapanduro/nphproduct:frontend
+          ports:
+            - containerPort: 4200
+          env:
+            - name: API_BACKEND
+              valueFrom:
+                secretKeyRef:
+                  name: database-credentials
+                  key: API_BACKEND
